@@ -90,54 +90,8 @@ MECSim supports following exclusive features.
 * It can calculate reliability of a task and based on it can find low reliable tasks
 * It supports reliability-aware offloading and selective task replication.
 * It has option to simulate user device failure
-
-### Efficiency and Scalability similar to PureEdgeSim
-A system is said to be efficient when it can maintain a specified level of proficiency without utilizing an excessive amount of resources, i.e., execution time and memory. Determining the theoretical time complexity of the given simulation is not trivial because the execution time depends entirely on the user scenario (i.e., the devices and tasks count, the mobility model, the types of resources, etc.) and the number of events that occur during the simulation. Furthermore, some parameters strongly influence the number of simulations and, obviously, the number of runs also directly influences the execution time.
-To demonstrate the scalability of PureEdgeSim, a few experiments were conducted on a single Intel Core i7-8550U.
-
-1.  A 10-minute simulation scenario with 10000 devices (ten thousand, which generated 1015000 tasks) took 72 seconds. 
-2.  A 24-hour simulation scenario with 200 devices (total of 2110706 tasks generated) took 91 seconds. 
-3.  A 60-minute scenario with 100 devices took only 3 seconds, meaning that the simulator was able to run through as much as 1200 seconds of simulated time in just one second of real time. 
-
-Of course, this time is highly dependent on the complexity of the decision making algorithm itself and the number of generated events  (as more devices = more tasks = more events), which is why it took longer with 10,000 devices. That said, it is still faster than real-time and outperforms all CloudSim/ CloudSim plus based simulators that either struggle to start due to the large number of devices or run out of memory due to the large number of events generated.
-
-It is therefore easy to conclude that PureEdgeSim meets the “efficiency and scalability” criteria as it allows for simulated experiments involving hundreds if not thousands of devices and tasks and runs considerably faster than in wall-clock time. An important step to reduce the simulation duration and solve its dependency on the number of runs is to implement multi-threading to execute simulation runs in parallel, which is already supported by PureEdgeSim.
-
-### Simulation Accuracy similar to PureEdgeSim
-
-As mentioned previously, PureEdgeSim offers the most realistic network, energy, and mobility models as compared to existing solutions. However, since it is a DES, the time complexity of the simulation is dependent on the number of events generated at runtime. To decrease simulation time, PureEdgeSim provides fast and complete control over the simulation environment by its collection of parameters, allowing users to compromise between simulation precision and length. Hence, how accurate the simulation is will be influenced by the user’s settings, particularly the update intervals. The shorter these intervals, the more precise and realistic the simulation, but also the longer it takes. 
-
-### Correctness similar to PureEdgeSim
-
-The tool is said to be correct if it fully complies with the stated requirements, which can be verified by checking test cases. To verify PureEdgeSim’s correctness through unit and integration testing, several test cases have been implemented. Nevertheless, this alone does not provide an assessment of which portions of the code were tested and which were not, neither gives a percentage of the overall coverage of tests alongside the project source code. To evaluate the amount of code that the available unit tests cover, code coverage reports were added to the project with the help of the Java Code Coverage Library (JaCoCo). 
-It is important to clarify that the concern of such test cases is the technical feasibility of the scenarios and not the evaluation of the simulation outcome. It is simply a matter of testing whether the given results are logically reasonable and not of actually validating them. To validate the software, a case study was conducted using the simulator. [At least 95% of PureEdgeSim code is covered by those tests](https://app.codacy.com/gh/CharafeddineMechalikh/PureEdgeSim/dashboard?utm_source=github.com&utm_medium=referral&utm_content=CharafeddineMechalikh/PureEdgeSim&utm_campaign=Badge_Coverage). 
-
-This achievement was made possible by testing all the new features and also by the considerable decrease in code duplication since duplicating code brings neglect of testing. 
-In conclusion, we can say that the proposed simulator performs as intended. Every function has finished without abortions and gave the expected output; All the input files were parsed successfully, and all the personalized models were integrated and verified with the predicted results. The plotting of the simulation results gave a reasonable graphical output. In terms of intended errors, such as incorrect inputs, proper error messages were displayed, and correct information was written into the log file. Moreover, the parameters can be modified, stored, and loaded without any error.
  
 
 ## 👩🏽‍💻 How to Use
 
 There are several ways to use PureEdgeSim; however, it is strongly advisable to run MECSim via a Java development environment, like Eclipse or IntelliJ IDE. A set of predefined examples is provided under the “/examples“ directory, which should allow anyone to become familiar with MECSim.
-
-### Using an IDE
-
-The simplest and recommended method to run this project is to use an IDE like Eclipse, IntelliJ IDEA, or NetBeans. The required steps to get started with the project are listed below:
-
-1.    Downloading and extracting the project source code archive from the project repository : This can be done using the web browser or the command line `git clone https://github.com/CharafeddineMechalikh/PureEdgeSim.git`.
-2.    Importing the project to the IDE:
-
-*   In NetBeans, simply select the "Open project" option and chose the project directory.
-*   In Eclipse or IntelliJ IDEA, the project must be imported by selecting the location where it was extracted or cloned .
-
-3.    The imported project consists of ten packages: the main application package, the above-mentioned modules, and the examples package. The main application and the modules are the simulator source code that normally should not be modified. The examples, however, are where the users can start.
-4.    It is necessary to convert the project into a Maven project in order to download all the required libraries.
-5.    Once all the necessary libraries are downloaded, users can start with the most basic examples by running any of the classes located in the “examples” package.
-6.    To build a new simulation scenario, the simplest way is to create another class in this package.
-
-### Via Command Line
-
-Assuming that git  and maven  are already installed, MECSim can be run from the command line as follows:
-1.    First, the project source code must be downloaded by cloning the repository via the command `git clone https://github.com/CharafeddineMechalikh/PureEdgeSim.git`. 
-2.    Now that the project is cloned, it can be built using Maven by executing the  `mvn clean install ` command in the directory where it was cloned.
-3.    Now, the examples can be executed on Windows, Linux, or Mac operating systems, using the command  `mvn exec:java -Dexec.mainClass="package.Class_Name" `. For instance, to execute “Example1”, the command is  `mvn exec:java -Dexec.mainClass="examples.Example1" `
